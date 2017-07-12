@@ -3,8 +3,54 @@ __author__ = 'thiagomarinho'
 import numpy as np
 import pickle as pkl
 import math,os,glob
+from django.db import models
 
 #TODO: INTEGRATE with DJANGO
+#Variables = models.CharField(options)
+
+#===================================================================================================
+#======================================VESSEL OBJECT================================================
+#===================================================================================================
+class VESSEL(models.Model):
+    def __init__(self):
+        name = models.CharField(max_length=250)
+        refFrame = models.ForeignKey(RF)
+        pass
+
+# ===================================================================================================
+# ======================================PROPELLER OBJECT================================================
+# ===================================================================================================
+class PROPELLER(models.Model):
+    def __init__(self):
+        pass
+
+
+#===================================================================================================
+#======================================PROPELLER OBJECT================================================
+#===================================================================================================
+class HULL(models.Model):
+    def __init__(self):
+        pass
+
+#===================================================================================================
+#======================================RIGID BODY OBJECT================================================
+#===================================================================================================
+class RB(models.Model):
+    def __init__(self, name, mass,lcg,tcg,vcg,inertia,rxx=0,ryy=0,rzz=0,obj_RF='World'):
+        pass
+
+# ===================================================================================================
+# ======================================REF FRAME OBJECT================================================
+# ===================================================================================================
+class RF(models.Model):
+    def __init__(self, name, pos_x, pos_y, pos_z, roll, pitch, yaw, order='zyx'):
+        number = models.Integer(max_size=20)
+        pass
+
+
+#===================================================================================================
+#======================================DESIGN OBJECT================================================
+#===================================================================================================
 
 
 #===================================================================================================
@@ -13,7 +59,7 @@ import math,os,glob
 
 
 
-class DESIGNER_000:
+class DESIGN(models.Model):
     def __init__(self):
        pass
 
@@ -21,27 +67,27 @@ class DESIGNER_000:
     #======================================010 - SEAKEEPING=============================================
     #===================================================================================================
 
-    def CalculateRao(self,wi,wf,N,obj_HULL,units=[],obj_RF=[]):
+    def calculateRao(self,wi,wf,N,obj_HULL,units=[],obj_RF=[]):
         #Calculate RAO as function of wave freq.
         pass
 
-    def ResponseSpectrum(self,units=[],obj_RF=[]):
+    def responseSpectrum(self,units=[],obj_RF=[]):
         #Calculate Rigid Body Response Spectrum for a given wave spectrum
         pass
 
-    def DynamicSim(self,units=[],obj_RF=[]):
+    def dynamicSim(self,units=[],obj_RF=[]):
         #Integrate the motion ODE to calculate states and control trajectories
         pass
 
-    def ForceGradients(self,units=[],obj_RF=[]):
+    def forceGradients(self,units=[],obj_RF=[]):
         #Calculate 6DoF Force Gradient as function of state and control vector
         pass
 
-    def NaturalPeriod(self,units=[],obj_RF=[]):
+    def naturalPeriod(self,units=[],obj_RF=[]):
         #Estimates Nrigid Body Natural Period
         pass
 
-    def ExtremeValues(self):
+    def extremeValues(self):
         #Returns a Weibull distribution of maxima and minima
         pass
 
@@ -49,28 +95,28 @@ class DESIGNER_000:
     #======================================020 - STABILITY==============================================
     #===================================================================================================
 
-    def StaticEquilibrium(self,units=[]):
+    def staticEquilibrium(self,units=[]):
         #Calculate the state and controil vector equilibrium position
         pass
 
-    def TankSounding(self,units=[],obj_RF=[]):
-        #Calculate tank sounding table
+    def tankSounding(self,units=[],obj_RF=[]):
+        # Calculate tank sounding table
         pass
 
-    def CrossCurves(self,units=[]):
+    def crossCurves(self,units=[]):
         #Calculate cross curves table
         pass
 
-    def AnimateTrajectory(self,units=[]):
+    def animateTrajectory(self,units=[]):
         #Create a blender animation from trajectory vector
         #TODO: Evaluate move to BLENDER API
         pass
 
-    def AssignLoading(self,units=[]):
+    def assignLoading(self,units=[]):
         #Create Loading Conditions
         pass
 
-    def StaticStability(self,obj_RIGID_BODY,obj_HULL,obj_RULES,units=[]):
+    def staticStability(self,obj_RIGID_BODY,obj_HULL,obj_RULES,units=[]):
         #Calculate GZ curve, Check against criteria
         pass
 
@@ -88,39 +134,39 @@ class DESIGNER_000:
     #===================================================================================================
     #======================================040 - WEIGHT AND BOUYANCY====================================
     #===================================================================================================
-    def GetMassProp(self,obj_RIGID_BODY):
+    def getMassProp(self,obj_RIGID_BODY):
         #Calculates summarized mass properties for RigidBody
         pass
 
-    def GenerateWeightSheet(self,obj_VESSEL):
+    def generateWeightSheet(self,obj_VESSEL):
         #Iterates through low level list of rigid body for mass properties
         #TODO: Write Workflow
         pass
 
-    def GetItemList(self,obj_VESSEL):
+    def getItemList(self,obj_VESSEL):
         #Returns BOM List within specified location range
         #TODO: WRITE WORKFLOW
         pass
 
-    def WeightAudit(self,obj_VESSEL):
+    def weightAudit(self,obj_VESSEL):
         #User inputs measured items position and mass to update weightsheet
         #TODO: WRITE WORKFLOW
         pass
 
-    def SpecifiedCondition(self,type,input_vector):
+    def specifiedCondition(self,type,input_vector):
         #input vector = Draft marks, or attitude and mean draft or mass
         pass
 
-    def IncliningTest(self,obj_TEST_INCLINING):
+    def incliningTest(self,obj_TEST_INCLINING):
         #Provides hydrostatic properties for specified condition
         #Estimate vessel mass properties from Inclining test data
         pass
 
-    def UprightHydrostatic(self,obj_VESSEL_HULL, Draft_i, Draft_f):
+    def uprightHydrostatic(self,obj_VESSEL_HULL, Draft_i, Draft_f):
         #Hydrostatic properties for a range of draft
         pass
 
-    def MeasureCG(self):
+    def measureCG(self):
         #Estimate CoG position from load cell measurements
         pass
 
@@ -130,29 +176,29 @@ class DESIGNER_000:
 
     #TODO: Create a separate G-Number for APIS
 
-    def DrawWing(self,obj_VESSEL_WING):
+    def drawWing(self,obj_VESSEL_WING):
         #Creates a SW drawing of wings
         pass
 
-    def DrawHull(self,obj_VESSEL_HULL):
+    def drawHull(self,obj_VESSEL_HULL):
         #Creates a SW drawing of Hull
         pass
 
-    def DrawStructure(self,obj_VESSEL_STRUCTURE):
+    def drawStructure(self,obj_VESSEL_STRUCTURE):
         #Creates a SW drawing of Structure
         #REFERENCE FILE: (MARCUS THESIS REQUIREMENTS)
         pass
 
 
-    def MeasureWing(self,SwFilePath):
+    def measureWing(self,SwFilePath):
         #Creates a python object of a wing
         pass
 
-    def MeasureHull(self,SwFilePath):
+    def measureHull(self,SwFilePath):
         #Creates a python object of a Hull
         pass
 
-    def MeasureStructure(self,SwFilePath):
+    def measureStructure(self,SwFilePath):
         #Creates a python object of a Structure
         pass
 
@@ -175,7 +221,7 @@ class DESIGNER_000:
 
 # KEEP AT END OF CODE FOR DICTIONARY DEFINITIONS
 
-class REPORTER:
+class REPORT(models.Model):
     def __init__(self,obj_design,path=''):
         self.DESIGN=obj_design
         if path =='':
@@ -219,7 +265,7 @@ class REPORTER:
             #            7: prime,
             #            }
 
-    def ExportTable(self):
+    def exportTable(self):
         #Exports an array, with header to excel or csv file
         pass
 
